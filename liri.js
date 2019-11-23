@@ -13,7 +13,7 @@ const oneYear = moment().add(365, "days").format("YYYY-MM-DD");
 
 // how to access spotify keys 
 const spotify = new Spotify(keys.spotify);
-
+const bands = keys.bands.id;
 
 ///error for DOTENV
 if (dotenv.error) {
@@ -25,7 +25,6 @@ if (dotenv.error) {
 const liriCommand = process.argv[2];
 const userSearch = process.argv[3];
 
-
 //// HERE ARE THE COMMANDS WE WANT LIRI TO RUN
 /*
 concert-this
@@ -34,18 +33,17 @@ movie-this
 do-what-it-says
 */
 
-
 // The switch-case will direct which function gets run.
-// switch (liriCommand) {
-//     case "concert-this":
-//       concertThis();
-//       break;
-// }
-
-if (liriCommand === "concert-this" && userSearch){
-    
-    concertThis();
+switch (liriCommand) {
+    case "concert-this":
+      concertThis();
+      break;
 }
+
+// if (liriCommand === "concert-this" && userSearch){
+    
+//     concertThis();
+// }
     
 //     case "spotify-this-song":
 //       deposit();
@@ -62,36 +60,27 @@ if (liriCommand === "concert-this" && userSearch){
 //       total();
 //       break;
 //     }
-
-
-
   // ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
 function concertThis() {
     
-
   axios
-  .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=codingbootcamp&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
+  .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=${bands}&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
   .then(function(response) {
     // If the axios was successful...
     // Then log the body from the site!
-    console.log(response.data);
     const artistInfo = response.data;
+    // if artist doesnt exist then it will spit out this message
+    if (artistInfo[0] === undefined){
+        console.log("there is  no database for this artist")
+    }
 
     for (let i=0; i < artistInfo.length; i++ ){
 
        let eventTime =  artistInfo[i].datetime;
        let eventDate = moment(eventTime).format("MM-DD-YYYY");
       
-
-    console.log(eventDate + ", " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + ", " + artistInfo[i].venue.name);   
-   
-    
+    console.log(eventDate + " --- " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + " --- " + artistInfo[i].venue.name);   
     }
-   
-    //////////////////THIS IS BANDS IN TOWN SPECIFIC
-    // console.log(artistInfo.venue.name);   
-    // console.log (artistInfo.venue.city);
-    //console.log(response.venue.)
   })
   .catch(function(error) {
     if (error.response) {
