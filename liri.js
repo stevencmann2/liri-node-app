@@ -76,6 +76,18 @@ function concertThis() {
     // Then log the body from the site!
     console.log(response.data);
     const artistInfo = response.data;
+
+    for (let i=0; i < artistInfo.length; i++ ){
+
+       let eventTime =  artistInfo[i].datetime;
+       let eventDate = moment(eventTime).format("MM-DD-YYYY");
+      
+
+    console.log(eventDate + ", " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + ", " + artistInfo[i].venue.name);   
+   
+    
+    }
+   
     //////////////////THIS IS BANDS IN TOWN SPECIFIC
     // console.log(artistInfo.venue.name);   
     // console.log (artistInfo.venue.city);
