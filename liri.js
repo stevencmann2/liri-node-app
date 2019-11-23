@@ -71,7 +71,7 @@ function concertThis() {
     const artistInfo = response.data;
     // if artist doesnt exist then it will spit out this message
     if (artistInfo[0] === undefined){
-        console.log("there is  no database for this artist")
+        console.log("there is  no database for this artist");
     }
 
     for (let i=0; i < artistInfo.length; i++ ){
