@@ -3,8 +3,18 @@ const dotenv = require("dotenv").config();
 
 const keys = require("./keys.js");
 
+///////// DOT ENV CONFIG 
 
-const spotify = new Spotify(keys.spotify);
+// con
+ 
+if (dotenv.error) {
+  throw dotenv.error
+}
+ 
+console.log(dotenv.parsed)
+
+
+// const spotify = new Spotify(keys.spotify);
 
 
 //// HERE ARE THE COMMANDS WE WANT LIRI TO RUN
