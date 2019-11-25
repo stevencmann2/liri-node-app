@@ -56,6 +56,9 @@ switch (liriCommand) {
   case "movie-this":
     movieThis();
     break;
+  case "spotify-this-song":
+    spotifyThis();
+    break;
 }
 
 // if (liriCommand === "concert-this" && userSearch){
@@ -63,10 +66,7 @@ switch (liriCommand) {
 //     concertThis();
 // }
 
-//     case "spotify-this-song":
-//       deposit();
-//       total();
-//       break;
+
 
 //     case "movie-this":
 //       withdraw();
@@ -141,36 +141,35 @@ function movieThis() {
       // If the axios was successful...
       // Then log the body from the site!
       const movieInfo = response.data;
-      
       //TO DO:
-      // MAKE LOOP, PRINT ERROR MESSAGES, IF ONE VALUE IS UNDEFINED KEEP PRINTING 
-      if(userSearch === undefined){
+      // MAKE LOOP for multiple words, PRINT ERROR MESSAGES, IF ONE VALUE IS UNDEFINED KEEP PRINTING 
+      if (userSearch === undefined) {
         let userSearch = "Mr.+Nobody";
         axios
-      .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) //&date=2015-05-05,2017-05-05
-      .then(function (response) {
-      // If the axios was successful...
-      // Then log the body from the site!
-      const movieInfo = response.data;
-      console.log(movieInfo.Title + 
-        movieInfo.Year + 
-        movieInfo.imdbRating + 
-        movieInfo.Ratings[1].Value +
-        movieInfo.Country +
-        movieInfo.Language +
-        movieInfo.Plot +
-        movieInfo.Actors);
-      })
-      }else{
-      console.log(movieInfo.Title + 
-        movieInfo.Year + 
-        movieInfo.imdbRating + 
-        movieInfo.Ratings[1].Value +
-        movieInfo.Country +
-        movieInfo.Language +
-        movieInfo.Plot +
-        movieInfo.Actors
-        )}
+          .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) //&date=2015-05-05,2017-05-05
+          .then(function (response) {
+            // If the axios was successful...
+            // Then log the body from the site!
+            const movieInfo = response.data;
+            console.log(movieInfo.Title +
+              movieInfo.Year +
+              movieInfo.imdbRating +
+              movieInfo.Ratings[1].Value +
+              movieInfo.Country +
+              movieInfo.Language +
+              movieInfo.Plot +
+              movieInfo.Actors);
+          })
+      } else {
+        console.log(movieInfo.Title +
+          movieInfo.Year +
+          movieInfo.imdbRating +
+          movieInfo.Ratings[1].Value +
+          movieInfo.Country +
+          movieInfo.Language +
+          movieInfo.Plot +
+          movieInfo.Actors)
+      }
       // if artist doesnt exist then it will spit out this message
     })
     .catch(function (error) {
@@ -200,3 +199,14 @@ function movieThis() {
 //do-what-it-says function 
 
 //spotify-this-song  function
+function spotifyThis() {
+    spotify
+  .search({ type: 'track', query: `${userSearch}` })
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
+
+}
