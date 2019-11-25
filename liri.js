@@ -2,7 +2,9 @@
 const dotenv = require("dotenv").config();
 const keys = require("./keys.js");
 const axios = require("axios");
-var Spotify = require('node-spotify-api');
+const Spotify = require('node-spotify-api');
+const fs = require('fs');
+
 
 const moment = require('moment');
 const now = moment().format("YYYY-MM-DD"); //so we can convert this for bands in town and reformat the result
@@ -192,54 +194,22 @@ function movieThis() {
 };
 
 
+//spotify-this-song function
+function spotifyThis() {
+    spotify
+  .search({ type: 'track', query: `${userSearch}`, limit: 3 })
+  .then(function(response) {
 
-
-
+    console.log(response);
+    let songs = response.tracks.items
+    console.log(songs);
+    for (i=0; i< songs.length; i++)
+    console.log(songs[i].album.artists[0].name + songs[i].name + songs[i].album.name + songs[i].external_urls.spotify)
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
+};
 
 //do-what-it-says function 
 
-//spotify-this-song  function
-function spotifyThis() {
-  // if(userSearch=== undefined){
-  //   let userSearch = ""
-  // } 
-
-
-//   spotify
-//   .search({ type: 'track', query: 'The Sign', limit: 10 })
-//   .then(function(response) {
-// console.log(response.tracks.items)
-  
-// })
-// .catch(function(err) {
-//   console.log(err);
-// });
-//////////for the ACE BASS SONG///////////////////////
-spotify
-  .request('https://api.spotify.com/v1/albums/5UwIyIyFzkM7wKeGtRJPgB')
-  .then(function(data) {
-    // console.log(data); 
-    let songs = data.tracks.items
-    // console.log(songs);
-    
-    console.log(songs[0].external_urls.spotify)
-  })
-  .catch(function(err) {
-    console.error('Error occurred: ' + err); 
-  });
-
-
-  //   spotify
-  // .search({ type: 'track', query: `${userSearch}`, limit: 3 })
-  // .then(function(response) {
-
-  //   console.log(response);
-  //   let songs = response.tracks.items
-  //   // console.log(songs);
-  //   for (i=0; i< songs.length; i++)
-  //   console.log(songs[i].album.artists[0].name + songs[i].name + songs[i].album.name + songs[i].external_urls.spotify)
-  // })
-  // .catch(function(err) {
-  //   console.log(err);
-  // });
-};
