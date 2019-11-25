@@ -200,13 +200,46 @@ function movieThis() {
 
 //spotify-this-song  function
 function spotifyThis() {
-    spotify
-  .search({ type: 'track', query: `${userSearch}` })
-  .then(function(response) {
-    console.log(response);
+  // if(userSearch=== undefined){
+  //   let userSearch = ""
+  // } 
+
+
+//   spotify
+//   .search({ type: 'track', query: 'The Sign', limit: 10 })
+//   .then(function(response) {
+// console.log(response.tracks.items)
+  
+// })
+// .catch(function(err) {
+//   console.log(err);
+// });
+//////////for the ACE BASS SONG///////////////////////
+spotify
+  .request('https://api.spotify.com/v1/albums/5UwIyIyFzkM7wKeGtRJPgB')
+  .then(function(data) {
+    // console.log(data); 
+    let songs = data.tracks.items
+    // console.log(songs);
+    
+    console.log(songs[0].external_urls.spotify)
   })
   .catch(function(err) {
-    console.log(err);
+    console.error('Error occurred: ' + err); 
   });
 
-}
+
+  //   spotify
+  // .search({ type: 'track', query: `${userSearch}`, limit: 3 })
+  // .then(function(response) {
+
+  //   console.log(response);
+  //   let songs = response.tracks.items
+  //   // console.log(songs);
+  //   for (i=0; i< songs.length; i++)
+  //   console.log(songs[i].album.artists[0].name + songs[i].name + songs[i].album.name + songs[i].external_urls.spotify)
+  // })
+  // .catch(function(err) {
+  //   console.log(err);
+  // });
+};
