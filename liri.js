@@ -14,6 +14,7 @@ const oneYear = moment().add(365, "days").format("YYYY-MM-DD");
 // how to access spotify keys 
 const spotify = new Spotify(keys.spotify);
 const bands = keys.bands.id;
+const movieAPI = keys.movie.id;
 
 ///error for DOTENV
 if (dotenv.error) {
@@ -33,79 +34,169 @@ movie-this
 do-what-it-says
 */
 
+
+/////////////////////////////////using inquierer
+
+// const questions = [{
+
+//   type: 'list',
+//   choices: [
+//     'Search for a movie',
+//     'Search for a song',
+//     'Search for an event',
+//   ],
+//   message: "what do you want to do?"
+// }]
+
 // The switch-case will direct which function gets run.
 switch (liriCommand) {
-    case "concert-this":
-      concertThis();
-      break;
+  case "concert-this":
+    concertThis();
+    break;
+  case "movie-this":
+    movieThis();
+    break;
 }
 
 // if (liriCommand === "concert-this" && userSearch){
-    
+
 //     concertThis();
 // }
-    
+
 //     case "spotify-this-song":
 //       deposit();
 //       total();
 //       break;
-    
+
 //     case "movie-this":
 //       withdraw();
 //       total();
 //       break;
-    
+
 //     case "do-what-it-says":
 //       lotto();
 //       total();
 //       break;
 //     }
-  // ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
+// ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
 function concertThis() {
-    
+
   axios
-  .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=${bands}&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
-  .then(function(response) {
-    // If the axios was successful...
-    // Then log the body from the site!
-    const artistInfo = response.data;
-    // if artist doesnt exist then it will spit out this message
-    if (artistInfo[0] === undefined){
-        console.log("there is  no database for this artist");
-    }
+    .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=${bands}&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
+    .then(function (response) {
+      //TO DO:
+      //  PRINT ERROR MESSAGES, IF ONE VALUE IS UNDEFINED KEEP PRINTING , MULTIPLE WORDS FOR INPUT LOOP
+      const artistInfo = response.data;
+      // if artist doesnt exist then it will spit out this message
+      if (artistInfo[0] === undefined) {
+        console.log("there is no database for this artist");
+      }
 
-    for (let i=0; i < artistInfo.length; i++ ){
+      for (let i = 0; i < artistInfo.length; i++) {
 
-       let eventTime =  artistInfo[i].datetime;
-       let eventDate = moment(eventTime).format("MM-DD-YYYY");
-      
-    console.log(eventDate + " --- " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + " --- " + artistInfo[i].venue.name);   
-    }
-  })
-  .catch(function(error) {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an object that comes back with details pertaining to the error that occurred.
-      console.log(error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
-    }
-    console.log(error.config);
-  });
+        let eventTime = artistInfo[i].datetime;
+        let eventDate = moment(eventTime).format("MM-DD-YYYY");
+
+        console.log(eventDate + " --- " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + " --- " + artistInfo[i].venue.name);
+      }
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an object that comes back with details pertaining to the error that occurred.
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
 };
 
-  //spotify-this-song  function
-
-  //movie-this  function
-
-  //do-what-it-says function 
 
 
+//movie-this  function
 
+/*
+  *Title of the movie.
+  * Year the movie came out.
+  * IMDB Rating of the movie.
+  * Rotten Tomatoes Rating of the movie.
+  * Country where the movie was produced.
+  * Language of the movie.
+  * Plot of the movie.
+  * Actors in the movie.
+
+*/
+function movieThis() {
+  axios
+    .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) //&date=2015-05-05,2017-05-05
+    .then(function (response) {
+      // If the axios was successful...
+      // Then log the body from the site!
+      const movieInfo = response.data;
+      
+      //TO DO:
+      // MAKE LOOP, PRINT ERROR MESSAGES, IF ONE VALUE IS UNDEFINED KEEP PRINTING 
+      if(userSearch === undefined){
+        let userSearch = "Mr.+Nobody";
+        axios
+      .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) //&date=2015-05-05,2017-05-05
+      .then(function (response) {
+      // If the axios was successful...
+      // Then log the body from the site!
+      const movieInfo = response.data;
+      console.log(movieInfo.Title + 
+        movieInfo.Year + 
+        movieInfo.imdbRating + 
+        movieInfo.Ratings[1].Value +
+        movieInfo.Country +
+        movieInfo.Language +
+        movieInfo.Plot +
+        movieInfo.Actors);
+      })
+      }else{
+      console.log(movieInfo.Title + 
+        movieInfo.Year + 
+        movieInfo.imdbRating + 
+        movieInfo.Ratings[1].Value +
+        movieInfo.Country +
+        movieInfo.Language +
+        movieInfo.Plot +
+        movieInfo.Actors
+        )}
+      // if artist doesnt exist then it will spit out this message
+    })
+    .catch(function (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        // `error.request` is an object that comes back with details pertaining to the error that occurred.
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log("Error", error.message);
+      }
+      console.log(error.config);
+    });
+};
+
+
+
+
+
+
+//do-what-it-says function 
+
+//spotify-this-song  function

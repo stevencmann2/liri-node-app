@@ -9,3 +9,7 @@ exports.bands = {
 
     id: process.env.BANDS_ID
 }
+
+exports.movie = {
+  id: process.env.MOVIE_ID
+}
