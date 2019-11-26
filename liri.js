@@ -212,16 +212,20 @@ function DoIt(liriCommand) {
     }
     // console.log(data);
     const dataArr = data.split(",");
-    console.log(dataArr);
+    // console.log(dataArr);
 
   if (dataArr[0] === "concert-this"){
-    console.log(dataArr[0])
-    console.log(dataArr[1])
-    
-      // console.log(userSearch);
       concertThis(dataArr[1]);
+  }
+  if(dataArr[0] === "movie-this"){
+    movieThis(dataArr[1]);
+  }
+  if(dataArr[0] === "spotify-this-song"){
+    spotifyThis(dataArr[1])
+  }
+
   }
 
 
-  });
-};
+  
+  )};
