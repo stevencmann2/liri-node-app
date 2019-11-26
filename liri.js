@@ -68,15 +68,20 @@ function concertThis() {
       const artistInfo = response.data;
       // if artist doesnt exist then it will spit out this message
       if (artistInfo[0] === undefined) {
-        console.log("there is no database for this artist");
+        console.log(
+          "\n" + "One moment please......." +
+          "\n"+ "\n"+ "We are so very sorry!" + "\n"+  "There is little we can do" + "\n"
+        + "because there is no record of this artist in our database" + "\n" + "please try again later" + "\n");
       }
 
+      console.log("\n"+ "|||||||||||||||||||||||||||||||||| LIRI UPCOMING CONCERT DATABASE ||||||||||||||||||||||||||||||||||" + "\n")
       for (let i = 0; i < artistInfo.length; i++) {
 
         let eventTime = artistInfo[i].datetime;
         let eventDate = moment(eventTime).format("MM-DD-YYYY");
 
-        console.log(eventDate + " --- " + artistInfo[i].venue.city + ", " + artistInfo[i].venue.region + " --- " + artistInfo[i].venue.name);
+        console.log(eventDate + " --- " + artistInfo[i].venue.city + ", " + 
+        artistInfo[i].venue.region + " --- " + artistInfo[i].venue.name);
       }
     })
     .catch(function (error) {
@@ -99,23 +104,11 @@ function concertThis() {
 };
 
 
+///////////////////////////////////////////MOVIE FUNCITON USING OMDB||||||||||||||||||||||||||||||||||||
 
-//movie-this  function
-
-/*
-  *Title of the movie.
-  * Year the movie came out.
-  * IMDB Rating of the movie.
-  * Rotten Tomatoes Rating of the movie.
-  * Country where the movie was produced.
-  * Language of the movie.
-  * Plot of the movie.
-  * Actors in the movie.
-
-*/
 function movieThis() {
   axios
-    .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) //&date=2015-05-05,2017-05-05
+    .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`) 
     .then(function (response) {
       // If the axios was successful...
       // Then log the body from the site!
@@ -175,7 +168,7 @@ function movieThis() {
 };
 
 
-//spotify-this-song function
+///////////////////////////////////   SPOTIFY FUNCTION |||||||||||||||||||||||||||||||||||||||||||
 function spotifyThis() {
   spotify
     .search({
