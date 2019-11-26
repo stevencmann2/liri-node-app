@@ -28,14 +28,6 @@ if (dotenv.error) {
 const liriCommand = process.argv[2];
 const userSearch = process.argv[3];
 
-//// HERE ARE THE COMMANDS WE WANT LIRI TO RUN
-/*
-concert-this
-spotify-this-song
-movie-this
-do-what-it-says
-*/
-
 
 /////////////////////////////////using inquierer
 
@@ -61,25 +53,10 @@ switch (liriCommand) {
   case "spotify-this-song":
     spotifyThis();
     break;
+  case "do-what-it-says":
+    DoIt();
+    break;
 }
-
-// if (liriCommand === "concert-this" && userSearch){
-
-//     concertThis();
-// }
-
-
-
-//     case "movie-this":
-//       withdraw();
-//       total();
-//       break;
-
-//     case "do-what-it-says":
-//       lotto();
-//       total();
-//       break;
-//     }
 // ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
 function concertThis() {
 
@@ -153,14 +130,16 @@ function movieThis() {
             // If the axios was successful...
             // Then log the body from the site!
             const movieInfo = response.data;
-            console.log(movieInfo.Title +
-              movieInfo.Year +
-              movieInfo.imdbRating +
-              movieInfo.Ratings[1].Value +
-              movieInfo.Country +
-              movieInfo.Language +
-              movieInfo.Plot +
-              movieInfo.Actors);
+            console.log(
+              "\n"+ "|||||||||||||||||||||||||||||||||| MOVIE DATABASE ||||||||||||||||||||||||||||||||||" +
+              "\n" + "Movie Title: " + movieInfo.Title +                  
+              "\n" +"Movie Year: " +movieInfo.Year +
+              "\n" +"IMDB Rating: " +movieInfo.imdbRating +
+              "\n" + "Rotten Tomato Score: " +movieInfo.Ratings[1].Value +
+              "\n" + "Produced in: " +movieInfo.Country +
+              "\n" + "Language: " +movieInfo.Language +
+              "\n" + "Plot Description: " +movieInfo.Plot +
+              "\n" + "Key Actors: " +movieInfo.Actors);
           })
       } else {
         console.log(movieInfo.Title +
@@ -196,20 +175,38 @@ function movieThis() {
 
 //spotify-this-song function
 function spotifyThis() {
-    spotify
-  .search({ type: 'track', query: `${userSearch}`, limit: 3 })
-  .then(function(response) {
+  spotify
+    .search({
+      type: 'track',
+      query: `${userSearch}`,
+      limit: 3
+    })
+    .then(function (response) {
 
-    console.log(response);
-    let songs = response.tracks.items
-    console.log(songs);
-    for (i=0; i< songs.length; i++)
-    console.log(songs[i].album.artists[0].name + songs[i].name + songs[i].album.name + songs[i].external_urls.spotify)
-  })
-  .catch(function(err) {
-    console.log(err);
-  });
+      console.log(response);
+      let songs = response.tracks.items
+      console.log(songs);
+      for (i = 0; i < songs.length; i++)
+        console.log(songs[i].album.artists[0].name + songs[i].name + songs[i].album.name + songs[i].external_urls.spotify)
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
 };
 
 //do-what-it-says function 
 
+function DoIt() {
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    console.log(data);
+    const dataArr = data.split(",");
+    console.log(dataArr);
+    dataArr[1] = userSearch; 
+    dataArr[0]= liriCommand;
+    switch(liriCommand){}
+  })
+
+}
