@@ -35,7 +35,6 @@ for (let i = 2; i < nodeArgs.length; i++){
   }
 }
 
-
 // The switch-case will direct which function gets run.
 switch (liriCommand) {
   case "concert-this":
@@ -160,18 +159,34 @@ function movieThis() {
 
 ///////////////////////////////////   SPOTIFY FUNCTION |||||||||||||||||||||||||||||||||||||||||||
 function spotifyThis() {
-  // if (userSearch === undefined){
-  // spotify
-  // .request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE')
-  // .then(function(data) {
-  //   console.log(data); 
-  //   console.log(data.artist)
-  // })
-  //   .catch(function(err) {
-  //     console.error('Error occurred: ' + err); 
-  //   });
+  if (userSearch === undefined){
+    spotify
+    .search({
+      type: 'track',
+      query: `ace of base`,
+      limit: 1
+    })
+    .then(function (response) {
 
-  // }else{
+      let songs = response.tracks.items
+      console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
+        "one moment please..." + "\n" + "\n" +
+        "You did not search a song, here's one for you anyways...." + "\n" + "\n" +
+        "-----------------------------"+ "\n")
+      for (i = 0; i < songs.length; i++)
+        console.log(
+         
+          "Artist: " + songs[i].album.artists[0].name +
+          "\n" + "Song Name: " + songs[i].name +
+          "\n" + "Album Name: " + songs[i].album.name +
+          "\n" + "Spotify Link: " + songs[i].external_urls.spotify +
+          "\n" + "\n" +
+          "-----------------------------"+ "\n")
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+  }else{
 
   spotify
     .search({
@@ -188,7 +203,7 @@ function spotifyThis() {
         "-----------------------------"+ "\n")
       for (i = 0; i < songs.length; i++)
         console.log(
-
+         
           "Artist: " + songs[i].album.artists[0].name +
           "\n" + "Song Name: " + songs[i].name +
           "\n" + "Album Name: " + songs[i].album.name +
@@ -201,29 +216,31 @@ function spotifyThis() {
     });
   }
 
-
+};
 
 //do-what-it-says function 
 
-function DoIt(liriCommand) {
-  fs.readFile("random.txt", "utf8", function (error, data) {
-    if (error) {
-      return console.log(error);
-    }
-    // console.log(data);
-    const dataArr = data.split(",");
-    // console.log(dataArr);
+// function DoIt(liriCommand) {
+//   fs.readFile("random.txt", "utf8", function (error, data) {
+//     if (error) {
+//       return console.log(error);
+//     }
+//     // console.log(data);
+//     const dataArr = data.split(",");
+//     // console.log(dataArr);
 
-  if (dataArr[0] === "concert-this"){
-      concertThis(dataArr[1]);
-  }
-  if(dataArr[0] === "movie-this"){
-    movieThis(dataArr[1]);
-  }
-  if(dataArr[0] === "spotify-this-song"){
-    spotifyThis(dataArr[1])
-  }
+//   if (dataArr[0] === "concert-this"){
+//       concertThis(dataArr[1]);
+//   }
+//   if(dataArr[0] === "movie-this"){
+//     movieThis(dataArr[1]);
+//   }
+//   if(dataArr[0] === "spotify-this-song"){
+//     console.log(dataArr[1])
+//     let userSearch = dataArr[1];
+//     spotifyThis()
+//   }
 
-  }
+//   }
   
-  )};
+//   )};
