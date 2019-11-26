@@ -20,19 +20,20 @@ if (dotenv.error) {
 }
 //this will be what liri looks for 
 const liriCommand = process.argv[2];
-const userSearch = process.argv[3];
+// const userSearch = process.argv[3];
 
-// let nodeArgs = process.argv;
-// let userSearch = "";
+let nodeArgs = process.argv;
+let userSearch = "";
 
-// //Set up loop to loop through the search paramters
-// for (let i = 2; i < nodeArgs.length; i++){
+//Set up loop to loop through the search paramters
+for (let i = 2; i < nodeArgs.length; i++){
 
-//   if (i > 2 && i < nodeArgs.length){
-
-//     userSearch += nodeArgs[i];
-//   }
-// }
+  if (i > 3 && i < nodeArgs.length){
+    userSearch = userSearch + "+" + nodeArgs[i];
+  }else{
+    userSearch = process.argv[3];
+  }
+}
 
 
 // The switch-case will direct which function gets run.
