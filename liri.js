@@ -131,25 +131,27 @@ function movieThis() {
             // Then log the body from the site!
             const movieInfo = response.data;
             console.log(
-              "\n"+ "|||||||||||||||||||||||||||||||||| MOVIE DATABASE ||||||||||||||||||||||||||||||||||" +
+              "\n"+ "|||||||||||||||||||||||||||||||||| LIRI MOVIE DATABASE ||||||||||||||||||||||||||||||||||" + "\n" +
               "\n" + "Movie Title: " + movieInfo.Title +                  
-              "\n" +"Movie Year: " +movieInfo.Year +
-              "\n" +"IMDB Rating: " +movieInfo.imdbRating +
-              "\n" + "Rotten Tomato Score: " +movieInfo.Ratings[1].Value +
-              "\n" + "Produced in: " +movieInfo.Country +
-              "\n" + "Language: " +movieInfo.Language +
-              "\n" + "Plot Description: " +movieInfo.Plot +
-              "\n" + "Key Actors: " +movieInfo.Actors);
+              "\n" +"Movie Year: " + movieInfo.Year +
+              "\n" +"IMDB Rating: " + movieInfo.imdbRating +
+              "\n" + "Rotten Tomato Score: " + movieInfo.Ratings[1].Value +
+              "\n" + "Produced in: " + movieInfo.Country +
+              "\n" + "Language: " + movieInfo.Language +
+              "\n" + "Plot Description: " + movieInfo.Plot +
+              "\n" + "Key Actors: " + movieInfo.Actors + "\n");
           })
       } else {
-        console.log(movieInfo.Title +
-          movieInfo.Year +
-          movieInfo.imdbRating +
-          movieInfo.Ratings[1].Value +
-          movieInfo.Country +
-          movieInfo.Language +
-          movieInfo.Plot +
-          movieInfo.Actors)
+        console.log(
+          "\n"+ "|||||||||||||||||||||||||||||||||| LIRI MOVIE DATABASE ||||||||||||||||||||||||||||||||||" + "\n" +
+          "\n" + "Movie Title: " + movieInfo.Title +
+          "\n" +"Movie Year: " + movieInfo.Year +
+          "\n" +"IMDB Rating: " + movieInfo.imdbRating +
+          "\n" + "Rotten Tomato Score: " + movieInfo.Ratings[1].Value +
+          "\n" + "Produced in: " + movieInfo.Country +
+          "\n" + "Language: " + movieInfo.Language +
+          "\n" + "Plot Description: " + movieInfo.Plot +
+          "\n" + "Key Actors: " + movieInfo.Actors + "\n")
       }
       // if artist doesnt exist then it will spit out this message
     })
@@ -206,7 +208,7 @@ function DoIt() {
     console.log(dataArr);
     dataArr[1] = userSearch; 
     dataArr[0]= liriCommand;
-    switch(liriCommand){}
+    // switch(liriCommand){}
   })
 
 }
