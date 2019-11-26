@@ -52,7 +52,7 @@ switch (liriCommand) {
     break;
 }
 // ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
-function concertThis(userSearch) {
+function concertThis() {
 
   axios
     .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=${bands}&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
@@ -99,7 +99,7 @@ function concertThis(userSearch) {
 
 ///////////////////////////////////////////MOVIE FUNCITON USING OMDB||||||||||||||||||||||||||||||||||||
 
-function movieThis(userSearch) {
+function movieThis() {
   axios
     .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`)
     .then(function (response) {
@@ -159,7 +159,7 @@ function movieThis(userSearch) {
 
 
 ///////////////////////////////////   SPOTIFY FUNCTION |||||||||||||||||||||||||||||||||||||||||||
-function spotifyThis(userSearch) {
+function spotifyThis() {
   // if (userSearch === undefined){
   // spotify
   // .request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE')
@@ -225,7 +225,5 @@ function DoIt(liriCommand) {
   }
 
   }
-
-
   
   )};
