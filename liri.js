@@ -52,7 +52,7 @@ switch (liriCommand) {
     break;
 }
 // ||||||||||||||||||||||||||||||||||CONCERT THIS FUNCTION |||||||||||||||||||||||||||||||
-function concertThis() {
+function concertThis(userSearch) {
 
   axios
     .get(`https://rest.bandsintown.com/artists/${userSearch}/events?app_id=${bands}&date=${now},${oneYear}`) //&date=2015-05-05,2017-05-05
@@ -70,7 +70,7 @@ function concertThis() {
       } else {
 
         console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI UPCOMING CONCERT DATABASE ||||||||||||||||||||||||||||||||||" + "\n" +
-          "\n" + "One moment please......." + "\n")
+          "\n" + "One moment please......." + "\n" + "\n" +"Top results based on search " + "\n")
         for (let i = 0; i < artistInfo.length; i++) {
 
           let eventTime = artistInfo[i].datetime;
@@ -99,7 +99,7 @@ function concertThis() {
 
 ///////////////////////////////////////////MOVIE FUNCITON USING OMDB||||||||||||||||||||||||||||||||||||
 
-function movieThis() {
+function movieThis(userSearch) {
   axios
     .get(`http://www.omdbapi.com/?apikey=${movieAPI}&t=${userSearch}`)
     .then(function (response) {
@@ -159,7 +159,20 @@ function movieThis() {
 
 
 ///////////////////////////////////   SPOTIFY FUNCTION |||||||||||||||||||||||||||||||||||||||||||
-function spotifyThis() {
+function spotifyThis(userSearch) {
+  // if (userSearch === undefined){
+  // spotify
+  // .request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE')
+  // .then(function(data) {
+  //   console.log(data); 
+  //   console.log(data.artist)
+  // })
+  //   .catch(function(err) {
+  //     console.error('Error occurred: ' + err); 
+  //   });
+
+  // }else{
+
   spotify
     .search({
       type: 'track',
@@ -168,7 +181,6 @@ function spotifyThis() {
     })
     .then(function (response) {
 
-      // console.log(response);
       let songs = response.tracks.items
       console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
         "one moment please..." + "\n" + "\n" +
@@ -187,19 +199,29 @@ function spotifyThis() {
     .catch(function (err) {
       console.log(err);
     });
-};
+  }
+
+
 
 //do-what-it-says function 
 
-// function DoIt() {
-//   fs.readFile("random.txt", "utf8", function (error, data) {
-//     if (error) {
-//       return console.log(error);
-//     }
-//     // console.log(data);
-//     const dataArr = data.split(",");
-//     console.log(dataArr);
+function DoIt(liriCommand) {
+  fs.readFile("random.txt", "utf8", function (error, data) {
+    if (error) {
+      return console.log(error);
+    }
+    // console.log(data);
+    const dataArr = data.split(",");
+    console.log(dataArr);
+
+  if (dataArr[0] === "concert-this"){
+    console.log(dataArr[0])
+    console.log(dataArr[1])
+    
+      // console.log(userSearch);
+      concertThis(dataArr[1]);
+  }
 
 
-//   });
-// };
+  });
+};
