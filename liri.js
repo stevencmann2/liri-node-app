@@ -124,6 +124,7 @@ function movieThis() {
               "\n" + "Key Actors: " + movieInfo.Actors + "\n");
           })
       } else {
+        
         console.log(
           "\n" + "|||||||||||||||||||||||||||||||||| LIRI MOVIE DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
           "one moment please..." + "\n" +
@@ -222,9 +223,9 @@ function DoIt(liriCommand) {
       if (error) {
         return console.log(error);
       }
-      // console.log(data);
+      //removes the , in the .txt file
       const dataArr = data.split(",");
-      // console.log(dataArr);
+      //redefine the inputs for userSearch to pass through the apporpriate function
       if (dataArr[0] === "concert-this") {
         userSearch = dataArr[1];
         concertThis();
