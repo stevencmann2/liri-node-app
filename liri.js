@@ -8,7 +8,6 @@ const moment = require('moment');
 const now = moment().format("YYYY-MM-DD"); //so we can convert this for bands in town and reformat the result
 const oneYear = moment().add(365, "days").format("YYYY-MM-DD");
 
-
 // how to access spotify keys 
 const spotify = new Spotify(keys.spotify);
 const bands = keys.bands.id;
@@ -26,11 +25,11 @@ let nodeArgs = process.argv;
 let userSearch = "";
 
 //Set up loop to loop through the search paramters
-for (let i = 2; i < nodeArgs.length; i++){
+for (let i = 2; i < nodeArgs.length; i++) {
 
-  if (i > 3 && i < nodeArgs.length){
+  if (i > 3 && i < nodeArgs.length) {
     userSearch = userSearch + "+" + nodeArgs[i];
-  }else{
+  } else {
     userSearch = process.argv[3];
   }
 }
@@ -63,13 +62,13 @@ function concertThis() {
       if (artistInfo[0] === undefined) {
         console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI UPCOMING CONCERT DATABASE ||||||||||||||||||||||||||||||||||" + "\n")
         console.log(
-           "One moment please......." +
+          "One moment please......." +
           "\n" + "\n" + "We are so very sorry!" + "\n" + "There is little we can do" + "\n" +
           "because there is no record of this artist in our database" + "\n" + "please try again later" + "\n");
       } else {
 
         console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI UPCOMING CONCERT DATABASE ||||||||||||||||||||||||||||||||||" + "\n" +
-          "\n" + "One moment please......." + "\n" + "\n" +"Top results based on search " + "\n")
+          "\n" + "One moment please......." + "\n" + "\n" + "Top results based on search " + "\n")
         for (let i = 0; i < artistInfo.length; i++) {
 
           let eventTime = artistInfo[i].datetime;
@@ -94,7 +93,6 @@ function concertThis() {
       console.log(error.config);
     });
 };
-
 
 ///////////////////////////////////////////MOVIE FUNCITON USING OMDB||||||||||||||||||||||||||||||||||||
 
@@ -159,88 +157,88 @@ function movieThis() {
 
 ///////////////////////////////////   SPOTIFY FUNCTION |||||||||||||||||||||||||||||||||||||||||||
 function spotifyThis() {
-  if (userSearch === undefined){
+  if (userSearch === undefined) {
     spotify
-    .search({
-      type: 'track',
-      query: `ace of base`,
-      limit: 1
-    })
-    .then(function (response) {
+      .search({
+        type: 'track',
+        query: `ace of base`,
+        limit: 1
+      })
+      .then(function (response) {
 
-      let songs = response.tracks.items
-      console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
-        "one moment please..." + "\n" + "\n" +
-        "You did not search a song, here's one for you anyways...." + "\n" + "\n" +
-        "-----------------------------"+ "\n")
-      for (i = 0; i < songs.length; i++)
-        console.log(
-         
-          "Artist: " + songs[i].album.artists[0].name +
-          "\n" + "Song Name: " + songs[i].name +
-          "\n" + "Album Name: " + songs[i].album.name +
-          "\n" + "Spotify Link: " + songs[i].external_urls.spotify +
-          "\n" + "\n" +
-          "-----------------------------"+ "\n")
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-  }else{
+        let songs = response.tracks.items
+        console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
+          "one moment please..." + "\n" + "\n" +
+          "You did not search a song, here's one for you anyways...." + "\n" + "\n" +
+          "-----------------------------" + "\n")
+        for (i = 0; i < songs.length; i++)
+          console.log(
 
-  spotify
-    .search({
-      type: 'track',
-      query: `${userSearch}`,
-      limit: 3
-    })
-    .then(function (response) {
+            "Artist: " + songs[i].album.artists[0].name +
+            "\n" + "Song Name: " + songs[i].name +
+            "\n" + "Album Name: " + songs[i].album.name +
+            "\n" + "Spotify Link: " + songs[i].external_urls.spotify +
+            "\n" + "\n" +
+            "-----------------------------" + "\n")
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  } else {
 
-      let songs = response.tracks.items
-      console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
-        "one moment please..." + "\n" + "\n" +
-        "Top 3 Spotify results based on search" + "\n" + "\n" +
-        "-----------------------------"+ "\n")
-      for (i = 0; i < songs.length; i++)
-        console.log(
-         
-          "Artist: " + songs[i].album.artists[0].name +
-          "\n" + "Song Name: " + songs[i].name +
-          "\n" + "Album Name: " + songs[i].album.name +
-          "\n" + "Spotify Link: " + songs[i].external_urls.spotify +
-          "\n" + "\n" +
-          "-----------------------------"+ "\n")
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
+    spotify
+      .search({
+        type: 'track',
+        query: `${userSearch}`,
+        limit: 3
+      })
+      .then(function (response) {
+
+        let songs = response.tracks.items
+        console.log("\n" + "|||||||||||||||||||||||||||||||||| LIRI SONG DATABASE ||||||||||||||||||||||||||||||||||" + "\n" + "\n" +
+          "one moment please..." + "\n" + "\n" +
+          "Top 3 Spotify results based on search" + "\n" + "\n" +
+          "-----------------------------" + "\n")
+        for (i = 0; i < songs.length; i++)
+          console.log(
+
+            "Artist: " + songs[i].album.artists[0].name +
+            "\n" + "Song Name: " + songs[i].name +
+            "\n" + "Album Name: " + songs[i].album.name +
+            "\n" + "Spotify Link: " + songs[i].external_urls.spotify +
+            "\n" + "\n" +
+            "-----------------------------" + "\n")
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   }
 
 };
 
 //do-what-it-says function 
+function DoIt(liriCommand) {
+  fs.readFile("random.txt", "utf8", function (error, data) {
+      if (error) {
+        return console.log(error);
+      }
+      // console.log(data);
+      const dataArr = data.split(",");
+      // console.log(dataArr);
+      if (dataArr[0] === "concert-this") {
+        userSearch = dataArr[1];
+        concertThis();
+      }
+      if (dataArr[0] === "movie-this") {
+        userSearch = dataArr[1];
+        movieThis();
+      }
+      if (dataArr[0] === "spotify-this-song") {
+        userSearch = dataArr[1];
+        spotifyThis();
+      }
 
-// function DoIt(liriCommand) {
-//   fs.readFile("random.txt", "utf8", function (error, data) {
-//     if (error) {
-//       return console.log(error);
-//     }
-//     // console.log(data);
-//     const dataArr = data.split(",");
-//     // console.log(dataArr);
+    }
 
-//   if (dataArr[0] === "concert-this"){
-//       concertThis(dataArr[1]);
-//   }
-//   if(dataArr[0] === "movie-this"){
-//     movieThis(dataArr[1]);
-//   }
-//   if(dataArr[0] === "spotify-this-song"){
-//     console.log(dataArr[1])
-//     let userSearch = dataArr[1];
-//     spotifyThis()
-//   }
-
-//   }
-  
-//   )};
+  )
+};
